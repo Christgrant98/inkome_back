@@ -6,7 +6,7 @@ class AdvertsController < ApplicationController
 
   def create
     advert = Advert.create(create_params)
-    render json: advert
+    render json: advert, status: :created
   end
 
   private
