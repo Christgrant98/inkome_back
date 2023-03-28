@@ -4,4 +4,22 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   get 'adverts', to: 'adverts#index'
   post 'adverts', to: 'adverts#create'
+   
+  # config/routes.rb
+  resources :users, only: [:create, :update]
+  post '/auth/login', to: 'authentication#login'
+
+  # routes.rb
+  post '/users', to: 'users#create'
+
+
+    #PRIMERO - ESTABLECER LA MISMA RUTA ASIGNADA EN ROUTES-
+    #SEGUNGO - ESTABLECER EL METODO (POST) EN EL POSTMAN-
+    #TERCERO - ESTABLECER KEY- CONTENT-TYPE VALUE- APPPLICATION/JSON
+    #CUARTO - BODY- RAW - JSON 
+    #QUINTO - PASAR ENTRE {} - PARAMS ESTABLECIDOS "password" : "canguro98", "email" : "canguro@admin.com" <- EN ESTE CASO
+    # BONUS TO CEHCK -require_relative "lib/json_web_token" 
+    #SEXTO SEND 
+    #:: <- SIGNIFICA QUE EL ELEMENTO QUE SE BUSCA SE ESNCUENTRA POR FUERA
+
 end
