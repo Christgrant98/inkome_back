@@ -2,16 +2,9 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  get 'adverts', to: 'adverts#index'
-  post 'adverts', to: 'adverts#create'
-   
-  # config/routes.rb
+  resources :adverts, only: [:index, :create]
   resources :users, only: [:create, :update]
   post '/auth/login', to: 'authentication#login'
-
-  # routes.rb
-  post '/users', to: 'users#create'
-
 
     #PRIMERO - ESTABLECER LA MISMA RUTA ASIGNADA EN ROUTES-
     #SEGUNGO - ESTABLECER EL METODO (POST) EN EL POSTMAN-

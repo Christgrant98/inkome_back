@@ -17,10 +17,10 @@ class ApplicationController < ActionController::API
       @current_user = User.find(@decoded[:user_id])
     # Si no se encuentra el usuario, se renderiza un error 401 (no autorizado)
     rescue ActiveRecord::RecordNotFound => e
-      render json: { errors: e.message }, status: :unauthorized
+      render json: { error: e.message }, status: :unauthorized
     # Si hay un error al decodificar el token JWT, se renderiza un error 401 (no autorizado)
     rescue JWT::DecodeError => e
-      render json: { errors: e.message }, status: :unauthorized
+      render json: { error: e.message }, status: :unauthorized
     end
   end
 end
