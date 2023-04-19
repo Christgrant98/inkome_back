@@ -3,12 +3,19 @@ class AdvertsController < ApplicationController
 
   def index
     adverts = Advert.all
-    render json: adverts
+    render json: adverts, each_serializer: AdvertSerializer
   end
 
   def create
-    advert = Advert.create(create_params)
-    render json: advert, status: :created
+    @advert = Advert.new(create_params)
+    @advert.add_images_from_base64(params[:advert][:images])
+
+    if @advert.save
+      render json: @advert, serializer: AdvertSerializer, status: :created
+    else
+      render json: { error: @advert.errors.full_messages.first },
+             status: :unprocessable_entity
+    end
   end
 
   private

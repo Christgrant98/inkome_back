@@ -50,3 +50,7 @@ group :development do
 end
 
 gem 'byebug'
+
+gem 'active_model_serializers'
+
+gem 'annotate'
