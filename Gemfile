@@ -54,5 +54,3 @@ gem 'byebug'
 gem 'active_model_serializers'
 
 gem 'annotate'
-
-gem 'mime-types-data'
