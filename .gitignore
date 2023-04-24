@@ -33,3 +33,5 @@
 /config/master.key
 
 .byebug_history
+
+Gemfile.lock

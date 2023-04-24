@@ -6,22 +6,19 @@ module Base64Attachable
       add_image_from_base64(base64_image)
     end
   end
-  
+
   def add_image_from_base64(base64_image)
-    decode_base64_image(base64_image) do |file|
-      images.attach(io: file, filename: "image.jpg")
-    end
+    image = decode_base64_to_image(base64_image)
+    images.attach(image)
   end
 
-  def decode_base64_image(base64_image)
-    file = Tempfile.new("image")
-    file.binmode
-    file.write(Base64.decode64(base64_image))
-    file.rewind
-    yield(file)
-  ensure
-    file.close
-    file.unlink
+  def decode_base64_to_image(base64_image)
+    content_type = MIME::Types.of(Base64.decode64(base64_image))[0].content_type
+    ActiveStorage::Blob.create_after_upload!(
+      io: StringIO.new(Base64.decode64(base64_image)),
+      filename: "#{SecureRandom.hex}.#{content_type.preferred_extension}",
+      content_type: content_type.to_s
+    )
   end
 
   def images_base64
