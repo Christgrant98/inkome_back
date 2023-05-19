@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+  include ActiveStorage::SetCurrent
   before_action :authorize_request
   # Este método se utiliza como un filtro de autorización 
   #antes de que se ejecute cualquier acción en el controlador que lo incluya.

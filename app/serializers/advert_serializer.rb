@@ -14,7 +14,9 @@ class AdvertSerializer < ActiveModel::Serializer
   attributes :id, :description, :name, :age, :phone, :images
 
   def images
-    object.images_base64.map { |image| image[:base64] }
+    object.images.map do |image|
+      image.blob.url
+    end
   end
 end
 

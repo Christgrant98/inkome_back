@@ -12,7 +12,6 @@
 #
 class Advert < ApplicationRecord
   include ActiveModel::Serialization
-  include Base64Attachable
 
   validates :description, :name, :age, :phone, presence: true
   has_many_attached :images

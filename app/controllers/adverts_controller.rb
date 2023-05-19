@@ -8,7 +8,6 @@ class AdvertsController < ApplicationController
 
   def create
     @advert = Advert.new(create_params)
-    @advert.add_images_from_base64(params[:advert][:images])
 
     if @advert.save
       render json: @advert, serializer: AdvertSerializer, status: :created
@@ -25,6 +24,7 @@ class AdvertsController < ApplicationController
       :age,
       :description,
       :phone,
+      images: [],
     )
   end
 end
