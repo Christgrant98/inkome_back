@@ -38,13 +38,13 @@ class UsersController < ApplicationController
 
   def create_params
     params.require(:user).permit(
-      :fullname, :phone, :age, :email, :password,
+      :fullname, :phone, :age, :email, :password, :birthdate,
     )
   end
 
   def update_params
     params.require(:user).permit(
-      :fullname, :phone, :age, :email,
+      :fullname, :phone, :age, :email, :birthdate,
     )
   end
 end
