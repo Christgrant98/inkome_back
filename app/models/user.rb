@@ -13,6 +13,7 @@
 #
 class User < ApplicationRecord
   has_secure_password
+  has_one_attached :image
   
   validates :email,
             format: { with: /\A[\w+\-.]+@[a-z\d\-ñ]+(\.[a-z\d\-ñ]+)*\.[a-z]+\z/i },
