@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   # PUT /users/:id
   def update
     if @user.update(update_params)
-      render json: {user: @user}, status: :ok
+      render json: {user: UserSerializer.new(@user)}, status: :ok
     else
       render json: { error: @user.errors.full_messages.first }, status: :unprocessable_entity
     end
