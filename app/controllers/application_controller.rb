@@ -24,4 +24,10 @@ class ApplicationController < ActionController::API
       render json: { error: e.message }, status: :unauthorized
     end
   end
+
+  def serialize_with(serializer, record, options={})
+    ActiveModelSerializers::SerializableResource.new(
+      record, options.merge({ serializer: serializer })
+    ).as_json
+  end
 end

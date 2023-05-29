@@ -5,7 +5,6 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    
     @user = User.new(create_params)
   
     if @user.save
@@ -19,7 +18,7 @@ class UsersController < ApplicationController
   # PUT /users/:id
   def update
     if @user.update(update_params)
-      render json: {user: UserSerializer.new(@user)}, status: :ok
+      render json: {user: serialize_with(UserSerializer, @user)}, status: :ok
     else
       render json: { error: @user.errors.full_messages.first }, status: :unprocessable_entity
     end
