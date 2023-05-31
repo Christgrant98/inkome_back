@@ -1,17 +1,6 @@
-# == Schema Information
-#
-# Table name: users
-#
-#  id              :integer          not null, primary key
-#  email           :string
-#  phone           :string
-#  fullname        :string
-#  age             :integer
-#  password_digest :string
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#
 class User < ApplicationRecord
+  before_validation :downcase_email
+
   has_secure_password
   has_one_attached :image
   
@@ -23,4 +12,10 @@ class User < ApplicationRecord
   validates :password,
             length: { minimum: 6 },
             if: -> { new_record? || !password.nil? }
+
+  private
+
+  def downcase_email
+    self.email = email.downcase if email.present?
+  end
 end
