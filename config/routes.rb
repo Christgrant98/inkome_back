@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   resources :adverts, only: [:index, :create]
   resources :users, only: [:create, :update]
   post '/auth/login', to: 'authentication#login'
+  post '/adverts/:advert_id/favorites', to: 'advert_favorites#create'
+  delete '/adverts/:advert_id/favorites', to: 'advert_favorites#destroy'
 
     #PRIMERO - ESTABLECER LA MISMA RUTA ASIGNADA EN ROUTES-
     #SEGUNGO - ESTABLECER EL METODO (POST) EN EL POSTMAN-

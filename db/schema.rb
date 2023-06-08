@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_29_185538) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_06_175806) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -39,6 +39,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_29_185538) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "advert_favorites", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "advert_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["advert_id"], name: "index_advert_favorites_on_advert_id"
+    t.index ["user_id"], name: "index_advert_favorites_on_user_id"
+  end
+
   create_table "adverts", force: :cascade do |t|
     t.string "description"
     t.string "name"
@@ -46,6 +55,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_29_185538) do
     t.string "phone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "adverts_favorites", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "advert_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["advert_id"], name: "index_adverts_favorites_on_advert_id"
+    t.index ["user_id"], name: "index_adverts_favorites_on_user_id"
   end
 
   create_table "images", force: :cascade do |t|
@@ -75,4 +93,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_29_185538) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "advert_favorites", "adverts"
+  add_foreign_key "advert_favorites", "users"
+  add_foreign_key "adverts_favorites", "adverts"
+  add_foreign_key "adverts_favorites", "users"
 end

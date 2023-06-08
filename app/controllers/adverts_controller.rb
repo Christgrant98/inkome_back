@@ -1,9 +1,14 @@
 class AdvertsController < ApplicationController
   skip_before_action :authorize_request, only: :index
+  before_action :set_current_user, only: :index
 
   def index
     adverts = Advert.all
-    render json: adverts, each_serializer: AdvertSerializer
+    render(
+      json: adverts,
+      each_serializer: AdvertSerializer,
+      serializer_options: { current_user: @current_user },
+    )
   end
 
   def create

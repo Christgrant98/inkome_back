@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :advert_favorites
+
   before_validation :downcase_email
 
   has_secure_password
