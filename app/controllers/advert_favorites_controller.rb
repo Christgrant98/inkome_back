@@ -14,7 +14,7 @@ class AdvertFavoritesController < ApplicationController
   end
 
   def destroy
-    @favorite = AdvertsFavorite.find_by(user_id: @current_user, advert_id: params[:advert_id])
+    @favorite = AdvertFavorite.find_by(user_id: @current_user, advert_id: params[:advert_id])
 
     if @favorite&.destroy
       render status: :ok
