@@ -10,6 +10,17 @@ class AdvertsController < ApplicationController
       serializer_options: { current_user: @current_user },
     )
   end
+  
+  def favorites
+   if @current_user
+     fav_adverts = @current_user.advert_favorites.includes(:advert).map(&:advert)
+     render json: fav_adverts, each_serializer: AdvertSerializer,
+     serializer_options: { current_user: @current_user }
+   else
+     render json: { error: 'Usuario no autenticado' }, status: :unauthorized
+   end
+ end
+
 
   def create
     @advert = Advert.new(create_params)
