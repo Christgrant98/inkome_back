@@ -3,24 +3,27 @@ class AdvertsController < ApplicationController
   before_action :set_current_user, only: :index
 
   def index
-    adverts = Advert.all
+    page = params[:page] || 1
+    per_page = params[:per_page] || 10
+
+    adverts = Advert.offset((page.to_i - 1) * per_page.to_i).limit(per_page)
+
     render(
       json: adverts,
       each_serializer: AdvertSerializer,
       serializer_options: { current_user: @current_user },
     )
   end
-  
-  def favorites
-   if @current_user
-     fav_adverts = @current_user.advert_favorites.includes(:advert).map(&:advert)
-     render json: fav_adverts, each_serializer: AdvertSerializer,
-     serializer_options: { current_user: @current_user }
-   else
-     render json: { error: 'Usuario no autenticado' }, status: :unauthorized
-   end
- end
 
+  def favorites
+    if @current_user
+      fav_adverts = @current_user.advert_favorites.includes(:advert).map(&:advert)
+      render json: fav_adverts, each_serializer: AdvertSerializer,
+             serializer_options: { current_user: @current_user }
+    else
+      render json: { error: 'Usuario no autenticado' }, status: :unauthorized
+    end
+  end
 
   def create
     @advert = Advert.new(create_params)
@@ -34,13 +37,14 @@ class AdvertsController < ApplicationController
   end
 
   private
+
   def create_params
     params.require(:advert).permit(
       :name,
       :age,
       :description,
       :phone,
-      images: [],
+      images: []
     )
   end
 end
