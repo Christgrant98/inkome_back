@@ -17,13 +17,22 @@ class AdvertsController < ApplicationController
 
   def favorites
     if @current_user
-      fav_adverts = @current_user.advert_favorites.includes(:advert).map(&:advert)
+      page = params[:page] || 1
+      per_page = params[:per_page] || 10
+  
+      fav_adverts = @current_user.advert_favorites
+                                .includes(:advert)
+                                .offset((page.to_i - 1) * per_page.to_i)
+                                .limit(per_page)
+                                .map(&:advert)
+  
       render json: fav_adverts, each_serializer: AdvertSerializer,
              serializer_options: { current_user: @current_user }
     else
       render json: { error: 'Usuario no autenticado' }, status: :unauthorized
     end
   end
+  
 
   def create
     @advert = Advert.new(create_params)
