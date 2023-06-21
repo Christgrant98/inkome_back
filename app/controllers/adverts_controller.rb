@@ -19,24 +19,24 @@ class AdvertsController < ApplicationController
     if @current_user
       page = params[:page] || 1
       per_page = params[:per_page] || 10
-  
+
       fav_adverts = @current_user.advert_favorites
                                 .includes(:advert)
                                 .offset((page.to_i - 1) * per_page.to_i)
                                 .limit(per_page)
                                 .map(&:advert)
-  
+
       render json: fav_adverts, each_serializer: AdvertSerializer,
              serializer_options: { current_user: @current_user }
     else
       render json: { error: 'Usuario no autenticado' }, status: :unauthorized
     end
   end
-  
 
   def create
+    # ad_tags = params[:advert][:ad_tags].split(",") if params[:advert][:ad_tags].present?
+  
     @advert = Advert.new(create_params)
-
     if @advert.save
       render json: @advert, serializer: AdvertSerializer, status: :created
     else
@@ -44,6 +44,7 @@ class AdvertsController < ApplicationController
              status: :unprocessable_entity
     end
   end
+  
 
   private
 
@@ -53,6 +54,7 @@ class AdvertsController < ApplicationController
       :age,
       :description,
       :phone,
+      :ad_tags,  
       images: []
     )
   end
