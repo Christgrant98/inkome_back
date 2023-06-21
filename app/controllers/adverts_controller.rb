@@ -34,9 +34,9 @@ class AdvertsController < ApplicationController
   end
 
   def create
-    # ad_tags = params[:advert][:ad_tags].split(",") if params[:advert][:ad_tags].present?
-  
     @advert = Advert.new(create_params)
+    @advert.ad_tags = nil if params[:advert][:ad_tags].nil? # Agrega esta línea
+  
     if @advert.save
       render json: @advert, serializer: AdvertSerializer, status: :created
     else
@@ -44,6 +44,7 @@ class AdvertsController < ApplicationController
              status: :unprocessable_entity
     end
   end
+  
   
 
   private
