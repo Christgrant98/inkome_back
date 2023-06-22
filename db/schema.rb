@@ -55,31 +55,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_21_155609) do
     t.string "phone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image"
     t.string "ad_tags"
-  end
-
-  create_table "adverts_favorites", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "advert_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["advert_id"], name: "index_adverts_favorites_on_advert_id"
-    t.index ["user_id"], name: "index_adverts_favorites_on_user_id"
-  end
-
-  create_table "images", force: :cascade do |t|
-    t.string "content"
-    t.integer "advert_id_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["advert_id_id"], name: "index_images_on_advert_id_id"
-  end
-
-  create_table "tokens", force: :cascade do |t|
-    t.integer "user_id"
-    t.string "secret"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -96,6 +73,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_21_155609) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "advert_favorites", "adverts"
   add_foreign_key "advert_favorites", "users"
-  add_foreign_key "adverts_favorites", "adverts"
-  add_foreign_key "adverts_favorites", "users"
 end
