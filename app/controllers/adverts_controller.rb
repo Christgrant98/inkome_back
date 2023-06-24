@@ -33,6 +33,13 @@ class AdvertsController < ApplicationController
     end
   end
 
+  def tags
+    tags = Advert.all.pluck(:ad_tags).compact.flat_map { |tags_str| tags_str.split(",") }
+    render json: tags
+  end
+  
+
+
   def create
     @advert = Advert.new(create_params)
     @advert.ad_tags = nil if params[:advert][:ad_tags].nil? # Agrega esta línea
