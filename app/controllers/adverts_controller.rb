@@ -8,8 +8,9 @@ class AdvertsController < ApplicationController
     filter = params[:filter] || ''
   
     adverts = Advert.where("name LIKE ?", "%#{filter}%")
-                   .offset((page.to_i - 1) * per_page.to_i)
-                   .limit(per_page)
+                    .or(Advert.where("ad_tags LIKE ?", "%#{filter}%"))
+                    .offset((page.to_i - 1) * per_page.to_i)
+                    .limit(per_page)
   
     render(
       json: adverts,
