@@ -5,15 +5,19 @@ class AdvertsController < ApplicationController
   def index
     page = params[:page] || 1
     per_page = params[:per_page] || 10
-
-    adverts = Advert.offset((page.to_i - 1) * per_page.to_i).limit(per_page)
-
+    filter = params[:filter] || ''
+  
+    adverts = Advert.where("name LIKE ?", "%#{filter}%")
+                   .offset((page.to_i - 1) * per_page.to_i)
+                   .limit(per_page)
+  
     render(
       json: adverts,
       each_serializer: AdvertSerializer,
       serializer_options: { current_user: @current_user },
     )
   end
+  
 
   def favorites
     if @current_user
