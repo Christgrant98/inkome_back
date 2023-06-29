@@ -18,6 +18,11 @@ class AdvertsController < ApplicationController
       serializer_options: { current_user: @current_user },
     )
   end
+
+  def user_ads
+    adverts = @current_user.adverts
+    render json: adverts, each_serializer: AdvertSerializer
+  end
   
 
   def favorites
@@ -47,6 +52,7 @@ class AdvertsController < ApplicationController
 
   def create
     @advert = Advert.new(create_params)
+    @advert.user_id = @current_user.id
     @advert.ad_tags = nil if params[:advert][:ad_tags].nil? # Agrega esta línea
   
     if @advert.save
@@ -63,6 +69,7 @@ class AdvertsController < ApplicationController
 
   def create_params
     params.require(:advert).permit(
+      :user_id,
       :name,
       :age,
       :description,

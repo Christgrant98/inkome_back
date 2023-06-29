@@ -1,5 +1,5 @@
 class AdvertSerializer < ActiveModel::Serializer
-  attributes :id, :description, :name, :age, :phone, :images, :is_fav, :ad_tags
+  attributes :id, :description, :name, :age, :phone, :images, :is_fav, :ad_tags, :user_id
 
   def is_fav
     current_user = instance_options.dig(:serializer_options, :current_user)

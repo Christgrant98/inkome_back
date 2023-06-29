@@ -1,10 +1,7 @@
 class ApplicationController < ActionController::API
   include ActiveStorage::SetCurrent
   before_action :authorize_request
-  # Este método se utiliza como un filtro de autorización 
-  #antes de que se ejecute cualquier acción en el controlador que lo incluya.
-  # Verifica si hay una cabecera de autorización en la solicitud, 
-  # si la hay, decodifica el token JWT y encuentra el usuario correspondiente.
+  
   def authorize_request
     begin
       set_current_user

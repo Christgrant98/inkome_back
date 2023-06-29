@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_21_155609) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_29_154525) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -57,6 +57,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_21_155609) do
     t.datetime "updated_at", null: false
     t.string "image"
     t.string "ad_tags"
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_adverts_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -73,4 +75,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_21_155609) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "advert_favorites", "adverts"
   add_foreign_key "advert_favorites", "users"
+  add_foreign_key "adverts", "users"
 end

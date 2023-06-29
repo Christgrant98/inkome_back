@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   delete '/adverts/:advert_id/favorites', to: 'advert_favorites#destroy'
   get '/favorites', to: 'adverts#favorites'
   get '/adverts/tags', to: 'adverts#tags'
+  get '/adverts/user', to: 'adverts#user_ads'
 
 end
