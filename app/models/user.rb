@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :adverts
   has_many :advert_favorites
+  has_many :stories
   
   before_validation :downcase_email
 
