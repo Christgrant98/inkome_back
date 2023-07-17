@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get '/adverts/tags', to: 'adverts#tags'
   get '/adverts/user', to: 'adverts#user_ads'
   post '/users/:user_id/stories', to: 'stories#create'
-  get '/users/stories', to: 'stories#index'
+  get '/stories/users', to: 'stories#index'
+  get '/users/stories', to: 'users#index'
 
 end

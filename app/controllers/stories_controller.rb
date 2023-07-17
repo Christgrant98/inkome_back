@@ -3,10 +3,13 @@ class StoriesController < ApplicationController
   before_action :set_story, only: [:show, :update, :destroy]
 
 def index
+  
+  @user = User.find(params[:user_id])
     render(
-      json: @current_user.stories,
+      json: @user.stories,
       each_serializer: StorySerializer
     )
+    
 end
 
   # POST /users/:user_id/stories

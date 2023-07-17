@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authorize_request, except: :create  
-  before_action :find_user, except: :create
+  before_action :find_user, except: [:create, :index]
   rescue_from ActiveRecord::RecordNotFound, with: :handle_user_not_found
 
   # POST /users
@@ -14,6 +14,13 @@ class UsersController < ApplicationController
       render json: { error: @user.errors.full_messages.first },
              status: :unprocessable_entity
     end
+  end
+
+  def index
+    render(
+      json: User.joins(:stories).where.not(stories: {user_id: nil}).distinct,
+      each_serializer: UserSerializer
+    )
   end
 
   # PUT /users/:id
