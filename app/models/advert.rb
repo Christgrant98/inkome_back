@@ -3,7 +3,8 @@ class Advert < ApplicationRecord
 
   belongs_to :user
   has_many :advert_favorites
-  has_many_attached :images
+  has_many_attached :images, dependent: :destroy
+  
 
   validates :user_id, :description, :name, :age, :phone, presence: true
 
