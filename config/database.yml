@@ -48,8 +48,8 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  database: swc_test_db
+  database: <%= ENV['POSTGRESQL_TEST'] %>
 
 production:
   <<: *default
-  database: swc_production_db
+  database: <%= ENV['POSTGRESQL_PRODUCTION'] %>
