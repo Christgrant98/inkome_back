@@ -7,8 +7,8 @@ class AdvertsController < ApplicationController
     per_page = params[:per_page] || 10
     filter = params[:filter] || ''
   
-    adverts = Advert.where("name LIKE ?", "%#{filter}%")
-                    .or(Advert.where("ad_tags LIKE ?", "%#{filter}%"))
+    adverts = Advert.where("LOWER(name) ILIKE ?", "%#{filter}%")
+                    .or(Advert.where("LOWER(ad_tags) ILIKE ?", "%#{filter}%"))
                     .offset((page.to_i - 1) * per_page.to_i)
                     .limit(per_page)
   
